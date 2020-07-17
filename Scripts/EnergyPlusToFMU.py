@@ -30,15 +30,15 @@
 #
 def printCmdLineUsage():
   #
-  print 'USAGE:', os.path.basename(__file__),  \
-    '-i <path-to-idd-file>  [-w <path-to-weather-file>]  [-a <fmi-version>] [-d]  [-L]  <path-to-idf-file>'
+  print('USAGE:', os.path.basename(__file__),  \
+    '-i <path-to-idd-file>  [-w <path-to-weather-file>]  [-a <fmi-version>] [-d]  [-L]  <path-to-idf-file>')
   #
-  print '-- Export an EnergyPlus model as a Functional Mockup Unit (FMU) for co-simulation'
-  print '-- Input -i, use the named Input Data Dictionary (required)'
-  print '-- Option -w, use the named weather file'
-  print '-- Option -a, specify the FMI version'
-  print '-- Option -d, print diagnostics'
-  print '-- Option -L, litter, that is, do not clean up intermediate files'
+  print('-- Export an EnergyPlus model as a Functional Mockup Unit (FMU) for co-simulation')
+  print('-- Input -i, use the named Input Data Dictionary (required)')
+  print('-- Option -w, use the named weather file')
+  print('-- Option -a, specify the FMI version')
+  print('-- Option -d, print diagnostics')
+  print('-- Option -L, litter, that is, do not clean up intermediate files')
   # TODO: Add -V to set version number of FMI standard.  Currently 1.0 is only one supported.
   #
   # End fcn printCmdLineUsage().
@@ -68,7 +68,7 @@ else:
 #
 def printDiagnostic(messageStr):
   #
-  print '!', os.path.basename(__file__), '--', messageStr
+  print('!', os.path.basename(__file__), '--', messageStr)
   #
   # End fcn printDiagnostic().
 
@@ -77,13 +77,13 @@ def printDiagnostic(messageStr):
 #
 def quitWithError(messageStr, showCmdLine):
   #
-  print 'ERROR from script file {' +os.path.basename(__file__) +'}'
+  print('ERROR from script file {' +os.path.basename(__file__) +'}')
   #
   if( messageStr is not None ):
-    print messageStr
+    print(messageStr)
   #
   if( showCmdLine ):
-    print
+    print()
     printCmdLineUsage()
   #
   sys.exit(1)
@@ -290,6 +290,7 @@ if __name__ == '__main__':
   iddFileName = None
   wthFileName = None
   fmiApiVersion = None
+  #fmiVersion = None
   showDiagnostics = False
   litter = False
   #
@@ -310,7 +311,7 @@ if __name__ == '__main__':
         printDiagnostic('Setting WTH file to {' +wthFileName +'}')
     elif( currArg.startswith('-a') ):
       currIdx += 1
-      fmiVersion = sys.argv[currIdx]
+      fmiApiVersion = sys.argv[currIdx]
       if( showDiagnostics ):
         printDiagnostic('Setting FMI API version (1 or 2) to {' +fmiApiVersion +'}')
     elif( currArg.startswith('-d') ):
@@ -337,12 +338,12 @@ if __name__ == '__main__':
   if( iddFileName is None ):
     quitWithError('Missing required input, <path-to-idd-file>', True)
   # Get {FMI version}.
-  if( fmiVersion is None ):
-      fmiVersion = "1.0"
-      printDiagnostic('FMI version is unspecified. It will be set to {' +fmiVersion +'}')
-  if not (fmiVersion in [1, 2, "1", "2", "1.0", "2.0"]):
-      quitWithError('FMI version "1" and "2" are supported, got FMI version {' +fmiVersion +'}', True)
-  if (int(float(fmiVersion))==2):
+  if( fmiApiVersion is None ):
+      fmiApiVersion = "1.0"
+      printDiagnostic('FMI version is unspecified. It will be set to {' +fmiApiVersion +'}')
+  if not (fmiApiVersion in [1, 2, "1", "2", "1.0", "2.0"]):
+      quitWithError('FMI version "1" and "2" are supported, got FMI version {' +fmiApiVersion +'}', True)
+  if (int(float(fmiApiVersion))==2):
       import struct
       nbits=8 * struct.calcsize("P")
       ops=PLATFORM_SHORT_NAME+str(nbits)
@@ -363,7 +364,7 @@ if __name__ == '__main__':
     #      quitWithError('FMI version 2.0 for Co-Simulation is not supported on {' +ops +'}', False)
 
   # Run.
-  exportEnergyPlusAsFMU(showDiagnostics, litter, iddFileName, wthFileName, int(float(fmiVersion)), idfFileName)
+  exportEnergyPlusAsFMU(showDiagnostics, litter, iddFileName, wthFileName, int(float(fmiApiVersion)), idfFileName)
 
 
 #--- Copyright notice.
