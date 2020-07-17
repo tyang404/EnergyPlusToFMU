@@ -11,8 +11,17 @@ See the release notes for additional information on the FMI version 2.0 for Co-S
 
 To install EnergyPlusToFMU, follow the section :doc:`installation`.
 
+Release 3.0.1 (July 17, 2020)
+-----------------------------
+
+Download `EnergyPlusToFMU-v3.0.1.zip <https://github.com/lbl-srg/EnergyplusToFMU/releases/download/v3.0.1/EnergyPlusToFMU-v3.0.1.zip>`_.
+
+**Release notes**
+
+This version is a minor release which adds supports for Python 3. This release addresses `issue#43 <https://github.com/lbl-srg/EnergyPlusToFMU/issues/43/>`_ on github.
+
 Release 3.0.0 (April 17, 2020)
----------------------------------
+------------------------------
 
 Download `EnergyPlusToFMU-v3.0.0.zip <https://github.com/lbl-srg/EnergyplusToFMU/releases/download/v3.0.0/EnergyPlusToFMU-v3.0.0.zip>`_.
 
